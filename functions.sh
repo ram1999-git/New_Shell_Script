@@ -2,7 +2,7 @@
 
 userid=$(id -u)
 Timestamp=$(date +%F-%H-%M-%S)
-Script_Name=$($0 | awk -d "." -f1)
+Script_Name=$($0 | cut -d "." -f1)
 logfile =/temp/$Script_Name-$Timestamp.logss
 
 validate(){
