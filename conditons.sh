@@ -1,6 +1,6 @@
 #!/bin/bash
 
-USERID =$(id =0)
+USERID = $(id =0)
  if($USERID -ne 0)
   then
      echo "You are a super user"
