@@ -22,4 +22,4 @@ if [ $? -ne 0 ]; then
 else
     echo "MySQL installation successful"
 fi
-VALIDATE $? "iNSTALLED MYSQL"
+VALIDATE $? "INSTALLED MYSQL"
