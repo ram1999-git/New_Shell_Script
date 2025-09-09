@@ -3,7 +3,7 @@
 userid=$(id -u)
 Timestamp=$(date +%F-%H-%M-%S)
 Script_Name=$(echo $0 | cut -d "." -f1)
-logfile =/tmp/$Script_Name-$Timestamp.logss
+logfile =/tmp/$Script_Name-$Timestamp.log
 
 validate(){
     if [$1 -ne 0]
