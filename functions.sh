@@ -2,8 +2,8 @@
 
 userid=$(id -u)
 Timestamp=$(date +%F-%H-%M-%S)
-Script_Name=$($0 | cut -d "." -f1)
-logfile =/temp/$Script_Name-$Timestamp.logss
+Script_Name=$(echo $0 | cut -d "." -f1)
+logfile =/tmp/$Script_Name-$Timestamp.logss
 
 validate(){
     if [$1 -ne 0]
