@@ -2,11 +2,12 @@
 
 userid=$(id -u)
 Timestamp=$(date +%F-%H-%M-%S)
-Script_Name=$(echo $0 | cut -d "." -f1)
-logfile =/tmp/$Script_Name-$Timestamp.logss
 
-validate(){
-    if [$1 -ne 0]
+Script_Name=$(echo $0 | cut -d "." -f1)
+logfile="/tmp/$Script_Name-$Timestamp.log"
+
+validate() {
+   if [$1 -ne 0]
     then
       echo "$2 is Failure"
       exit 1
@@ -15,29 +16,22 @@ validate(){
     fi
 }
 
-if [ $userid -ne 0 ]; then
-  echo "Please run the script with root access"
+
+# Check for root access
+if [ "$userid" -ne 0 ]; then
+  echo " Please run the script with root access"
   exit 1
 else
-  echo "You are super user"
+  echo "You are a super user"
 fi
 
+# Install MySQL
+echo "--- Installing MySQL ---"
 dnf install mysql -y &>>$logfile
-
 validate $? "Installing mysql"
 
-if [ $? -ne 0 ]; then
-  echo "Installation of mysql is failure"
-  exit 1
-fi
-
+# Install Git
+echo "--- Installing Git ---"
 dnf install git -y &>>$logfile
+validate $? "Installing git"
 
-if [ $? -ne 0 ]; then 
-  echo "Installation of git is Failure"
-  exit 1
-else
-  echo "installation of git is success"
-fi
-
-echo "is script proceeding?"
