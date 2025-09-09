@@ -3,8 +3,12 @@
 userid=$(id -u)
 
 validate(){
-    echo "Exit status:$1"
-    echo "What are you doing:$2"
+    if [$1 -ne 0]
+    then
+      echo "$2 is Failure"
+      exit 1
+    else
+      echo "$2 is success"
 }
 
 if [ $userid -ne 0 ]; then
