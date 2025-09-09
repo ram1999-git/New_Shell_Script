@@ -1,25 +1,37 @@
 #!/bin/bash
 
-USERID=$(id -u)
+userid=$(id -u)
 
-validate(){
-   echo "Exit status : $1"
+validate() {
+    if [ $1 -ne 0 ]; then
+        echo "Error: $2 failed (Exit status: $1)"
+        exit 1
+    else
+        echo "$2 successful"
+    fi
 }
 
-if [ $USERID -ne 0 ];
- then
-    echo "Please run as a superuser (use sudo)"
+if [ $userid -ne 0 ]; then
+    echo "Please run the script with root access"
     exit 1
 else
     echo "You are a superuser"
 fi
 
-# Install MySQL
-dnf install mysql -y
-if [ $? -ne 0 ]; then
-    echo "Installation of MySQL failed"
-    exit 1
+# Check if MySQL is already installed
+if dnf list installed mysql >/dev/null 2>&1; then
+    echo "MySQL is already installed"
 else
-    echo "MySQL installation successful"
+    dnf install mysql -y
+    validate $? "Installing MySQL"
 fi
-VALIDATE $? "INSTALLED MYSQL"
+
+# Check if Git is already installed
+if dnf list installed git >/dev/null 2>&1; then
+    echo "Git is already installed"
+else
+    dnf install git -y
+    validate $? "Installing Git"
+fi
+
+echo "Script completed successfully"
