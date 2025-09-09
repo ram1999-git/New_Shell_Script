@@ -26,18 +26,7 @@ dnf install mysql -y &>>$logfile
 
 validate $? "Installing mysql"
 
-if [ $? -ne 0 ]; then
-  echo "Installation of mysql is failure"
-  exit 1
-fi
-
 dnf install git -y &>>$logfile
-
-if [ $? -ne 0 ]; then 
-  echo "Installation of git is Failure"
-  exit 1
-else
-  echo "installation of git is success"
-fi
+validate $? "Installing git"
 
 echo "is script proceeding?"
